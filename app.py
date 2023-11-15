@@ -12,7 +12,7 @@ def main():
     
     st.markdown(html_temp,unsafe_allow_html=True)
     
-    model = joblib.load('model_joblib_gr')
+    model = joblib.load('gd model')
     
     p1 = st.slider('Enter Your Age',18,100)
     
@@ -55,6 +55,10 @@ git commit -m "first commit"
 git branch -M master
 git remote add origin https://github.com/lakshmiprasadlp/ml_modial-app.git
 git push -u origin master
+
+venv
+conda create -p venv python=3.8 -y
+conda activate venv\
 
 """
         
