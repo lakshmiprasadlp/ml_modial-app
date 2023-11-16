@@ -1,6 +1,6 @@
 pandas
 joblib
 streamlit
-sklearn
+scikit-learn
 
 #-e .

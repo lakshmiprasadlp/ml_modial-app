@@ -1,7 +1,10 @@
 import streamlit as st
 import joblib
 import numpy as np
-
+import sklearn
+"""
+@author: lp
+"""
 def main():
     html_temp = """
     <div style="background-color:lightblue;padding:16px">
@@ -9,44 +12,40 @@ def main():
     </div>
     
     """
-    
     st.markdown(html_temp,unsafe_allow_html=True)
     
-    model = joblib.load('gd model')
+    model=joblib.load("lr_model")
     
-    p1 = st.slider('Enter Your Age',18,100)
+    agg=st.slider("enter your age",18,100)
     
-    s1 = st.selectbox('Sex',('Male','Female'))
+    gender=st.selectbox("Enter the gender",("male","female"))
     
-    if s1=='Male':
-        p2=1
+    if gender=="male":
+        gender=1
     else:
-        p2=0
-        
-    p3 = st.number_input("Enter Your BMI Value")
+        gender=0
+    bmi=st.number_input("enter the bmi value")
+
+    childr=st.slider("Enter the no of children",0,5)
     
+    smoker=st.selectbox("are you smoker ",("yes","no"))
     
-    
-    p4 = st.slider("Enter Number of Children",0,4)
-    
-    
-    s2 = st.selectbox("Smoker",("Yes","No"))
-    
-    
-    if s2=='Yes':
-        p5=1
+    if smoker=="yes":
+        smoker=1
     else:
-        p5=0
-        
-        
-    p6 = st.slider("Enter Your Region",1,4)
+        smoker=0
     
-    if st.button('Predict'):
-        pred= model.predict([[p1,p2,p3,p4,p5,p6]])
+    reg=st.slider("enter the reagion",1,4)
+    
+    if st.button("predict"):
+        pre= model.predict([[agg,gender,bmi,childr,smoker,reg]])
         
-        st.balloons()
-        st.success('Your Insurance Cost is {}'.format(round(pred[0],2)))
-        
+        st.success("Your Insurence Coste is {}".format(pre[0]))
+    
+    
+      
+if __name__ == '__main__':
+    main()
     
     
 """
@@ -60,10 +59,8 @@ venv
 conda create -p venv python=3.8 -y
 conda activate venv\
 
+streamlit run app.py
 """
         
     
     
-    
-if __name__ == '__main__':
-    main()
