@@ -37,3 +37,14 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Deploy Streamlit App to AWS App Runner
+      run: |
+        aws apprunner create-service \
+          --service-name YOUR-SERVICE-NAME \
+          --source-code "type=git,repository=YOUR-GIT-REPO-URL" \
+          --region YOUR-AWS-REGION \
+          --image-configuration imageUri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --port 8501 \
+          --environment-variables "AWS_DEFAULT_REGION=us-east-1" \
+          --instance-configuration "cpu=1024, memory=2048"
