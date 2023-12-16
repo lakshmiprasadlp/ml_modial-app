@@ -41,10 +41,10 @@ jobs:
     - name: Deploy Streamlit App to AWS App Runner
       run: |
         aws apprunner create-service \
-          --service-name YOUR-SERVICE-NAME \
-          --source-configuration "repositoryType=GIT,sourceRepository=YOUR-GIT-REPO-URL" \
+          --service-name my-streamlit-app \
+          --source-configuration "repositoryType=GIT,sourceRepository=https://github.com/lakshmiprasadlp/ml_modial-app.git" \
           --image-configuration imageUri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --region YOUR-AWS-REGION \
+          --region us-east-1 \
           --port 8501 \
           --environment-variables "AWS_DEFAULT_REGION=us-east-1" \
           --instance-configuration "cpu=1024, memory=2048"
