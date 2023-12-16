@@ -42,9 +42,9 @@ jobs:
       run: |
         aws apprunner create-service \
           --service-name YOUR-SERVICE-NAME \
-          --source-code "type=git,repository=YOUR-GIT-REPO-URL" \
-          --region YOUR-AWS-REGION \
+          --source-configuration "repositoryType=GIT,sourceRepository=YOUR-GIT-REPO-URL" \
           --image-configuration imageUri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --region YOUR-AWS-REGION \
           --port 8501 \
           --environment-variables "AWS_DEFAULT_REGION=us-east-1" \
           --instance-configuration "cpu=1024, memory=2048"
