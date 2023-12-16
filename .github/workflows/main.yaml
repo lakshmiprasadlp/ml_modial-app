@@ -38,12 +38,11 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-- name: Deploy Streamlit App to AWS App Runner
-  run: |
-    aws apprunner create-service \
-      --service-name my-streamlit-app \
-      --source-configuration "repositoryType=GIT,sourceRepository=https://github.com/lakshmiprasadlp/ml_modial-app.git" \
-      --image-configuration "runtime=PYTHON_3,buildCommand=docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .,startCommand=docker run -p 8501:8501 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" \
-      --region us-east-1 \
-      --instance-configuration "cpu=1024,memory=2048"
-
+    - name: Deploy Streamlit App to AWS App Runner
+      run: |
+        aws apprunner create-service \
+          --service-name my-streamlit-app \
+          --source-configuration "repositoryType=GIT,sourceRepository=https://github.com/lakshmiprasadlp/ml_modial-app.git" \
+          --image-configuration "runtime=PYTHON_3,buildCommand=docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .,startCommand=docker run -p 8501:8501 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" \
+          --region us-east-1 \
+          --instance-configuration "cpu=1024,memory=2048"
