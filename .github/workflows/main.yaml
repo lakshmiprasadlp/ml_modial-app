@@ -3,7 +3,7 @@ name: Build and push image to ECR
 on:
   push:
     branches:
-      - maste_r
+      - master
 
 jobs:
   build-and-push-ecr-image:
